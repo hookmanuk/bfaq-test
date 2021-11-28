@@ -25,6 +25,29 @@
       </div>
     </div>
     <script>
+        function traceMethodCalls(obj) {
+            return new Proxy(obj, {
+                get(target, methodName, receiver) {
+                    // get origin method
+                    const originMethod = target[methodName];
+
+                    return function (...args) {
+                        // write to file here
+                        if (args[0] != undefined) {
+                            alert(args[0]);
+                        }
+                        
+                        
+
+                        // call origin method
+                        return originMethod.apply(this, args);
+                    };
+                }
+            });
+        }
+
+        console = traceMethodCalls(console);
+
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/bfaq-test.loader.js";
       var config = {
