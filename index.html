@@ -32,8 +32,8 @@
                     const originMethod = target[methodName];
 
                     return function (...args) {
-                        // write to file here
-                        if (args[0] != undefined) {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        if (urlParams.get('consolealerts') && args[0] != undefined) {
                             alert(args[0]);
                         }
                         
